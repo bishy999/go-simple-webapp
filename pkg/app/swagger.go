@@ -1,11 +1,12 @@
 package app
 
-// Success response
+// success response
 // swagger:response success
-type swaggAccountRes struct {
+type success struct {
 	// in:body
 	Body event
 }
+
 
 // Error Bad Request
 // swagger:response badRequest
@@ -66,3 +67,5 @@ type swaggErrInternal struct {
 		Message string `json:"message"`
 	}
 }
+
+

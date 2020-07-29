@@ -1,0 +1,34 @@
+dist: trusty
+
+language: go
+
+go:
+  - 1.14
+
+jobs:
+  include:
+    - stage: generate swager
+      before_script:
+      - go install github.com/go-swagger/go-swagger/cmd/swagger
+      script:
+      - swagger generate spec -o website/swaggerui/swagger.json
+    - stage: install and use lint
+      before_script:
+      - go install github.com/golangci/golangci-lint/cmd/golangci-lint
+      script:
+      - golangci-lint run --skip-files swagger.go
+      #- go test -cover ./pkg/...
+      # - go test -race -coverprofile=coverage.txt -covermode=atomic
+    - stage: build docker image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t my-simple-webapp .
+      - docker images
+      - docker tag my-webapp $DOCKER_USERNAME/golang:1.${TRAVIS_BUILD_NUMBER}-my-simple-webapp
+      - docker push $DOCKER_USERNAME/golang:1.${TRAVIS_BUILD_NUMBER}-my-simple-webapp
+
+# push results to CodeCov
+#after_success:
+#  - bash <(curl -s https://codecov.io/bash)
+
+

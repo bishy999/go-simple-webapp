@@ -62,11 +62,13 @@ func createEvent(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	json.Unmarshal(reqBody, &data)
+	err = json.Unmarshal(reqBody, &data)
+	check(err)
 	events = append(events, data)
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(data)
+	err = json.NewEncoder(w).Encode(data)
+	check(err)
 
 }
 
@@ -95,7 +97,8 @@ func getEvent(w http.ResponseWriter, req *http.Request) {
 	id := mux.Vars(req)["id"]
 	for _, singleEvent := range events {
 		if singleEvent.ID == id {
-			json.NewEncoder(w).Encode(singleEvent)
+			err := json.NewEncoder(w).Encode(singleEvent)
+			check(err)
 			match = true
 		}
 	}
@@ -126,7 +129,8 @@ func getAllEvents(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(w)
 	}
-	json.NewEncoder(w).Encode(events)
+	err := json.NewEncoder(w).Encode(events)
+	check(err)
 }
 
 // swagger:operation DELETE /events/{id} events deleteEvent
@@ -201,14 +205,16 @@ func updateEvent(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, "Enter data with the event title and description only in order to update", http.StatusForbidden)
 		return
 	}
-	json.Unmarshal(reqBody, &updatedEvent)
+	err = json.Unmarshal(reqBody, &updatedEvent)
+	check(err)
 
 	for i, singleEvent := range events {
 		if singleEvent.ID == updatedEvent.ID {
 			singleEvent.Title = updatedEvent.Title
 			singleEvent.Description = updatedEvent.Description
 			events = append(events[:i], singleEvent)
-			json.NewEncoder(w).Encode(singleEvent)
+			err = json.NewEncoder(w).Encode(singleEvent)
+			check(err)
 			match = true
 		}
 	}
@@ -260,12 +266,14 @@ func (db *Env) generateToken(w http.ResponseWriter, req *http.Request) {
 	tkn, err := createToken(username)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		io.WriteString(w, `{"error":"token_generation_failed"}`)
+		_, err := io.WriteString(w, `{"error":"token_generation_failed"}`)
+		check(err)
 		return
 	}
 
 	u.Token = tkn
-	io.WriteString(w, `{"token":"`+tkn+`"}`)
+	_, err = io.WriteString(w, `{"token":"`+tkn+`"}`)
+	check(err)
 
 }
 

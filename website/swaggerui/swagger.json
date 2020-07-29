@@ -320,7 +320,7 @@
       }
     },
     "success": {
-      "description": "Success response",
+      "description": "success response",
       "schema": {
         "$ref": "#/definitions/event"
       }

@@ -46,7 +46,7 @@ import (
 func main() {
 
 	db := app.InitDB()
-	tpl := template.Must(template.ParseGlob("/website/templates/*"))
+	tpl := template.Must(template.ParseGlob("./website/templates/*"))
 	router := mux.NewRouter().StrictSlash(true)
 
 	env := &app.Env{DB: db, Tpl: tpl, Router: router, DbSessionsCleaned: time.Now()}

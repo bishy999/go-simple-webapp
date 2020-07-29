@@ -2,14 +2,11 @@ package app
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
-	"net/http"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
 )
-
 
 //InitDB setup database for use
 func InitDB() *sql.DB {
@@ -28,6 +25,7 @@ func InitDB() *sql.DB {
 
 }
 
+/**
 func (env *Env) createDB(w http.ResponseWriter, req *http.Request) {
 
 	stmt, err := env.DB.Prepare(`CREATE TABLE user (userid VARCHAR(30), passwd CHAR(60));`)
@@ -43,6 +41,7 @@ func (env *Env) createDB(w http.ResponseWriter, req *http.Request) {
 
 	fmt.Fprintln(w, "CREATED TABLE user", n)
 }
+**/
 
 // findUserSession searches for the user associated with this session
 // returns session if found

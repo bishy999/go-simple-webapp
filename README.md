@@ -3,11 +3,6 @@
 
 go-simple-webapp is an example of a basic crud webapp
 
-You can view the docs by serving the docs from this repository : [http://localhost:6060/pkg/](http://localhost:6060/pkg/)
-```go
- godoc -http :6060
- ```
-
 
  ## Status
 [![Build Status](https://travis-ci.com/bishy999/go-simple-webapp.svg?branch=master)](https://travis-ci.com/bishy999/go-simple-webapp)
@@ -15,16 +10,83 @@ You can view the docs by serving the docs from this repository : [http://localho
 [![GoDoc](https://godoc.org/github.com/bishy999/go-simple-webapp/pkg/tag?status.svg)](https://godoc.org/github.com/bishy999/go-simple-webapp/pkg/app)
 ![GitHub Repo size](https://img.shields.io/github/repo-size/bishy999/go-simple-webapp)
 [![GitHub Tag](https://img.shields.io/github/tag/bishy999/go-simple-webapp.svg)](https://github.com/bishy999/go-simple-webapp/releases/latest)
-[![GitHub Activity](https://img.shields.io/github/commit-activity/m/bishy999/go-simple-webapp)](https://github.com/bishy999/go-simple-webapp)
-[![GitHub Contributors](https://img.shields.io/github/contributors/bishy999/go-simple-webapp2)](https://github.com/bishy999/go-simple-webapp)
+[![GitHub Activity](    )](https://github.com/bishy999/go-simple-webapp)
+[![GitHub Contributors](https://img.shields.io/github/contributors/bishy999/go-simple-webapp)](https://github.com/bishy999/go-simple-webapp)
+[![codecov](https://codecov.io/gh/bishy999/go-simple-webapp/branch/master/graph/badge.svg)](https://codecov.io/gh/bishy999/go-simple-webapp)
 
 
 
-## How to get this up and running
+
+
+##########################################################################################
+#                  Steps to build and deploy simple golang webapp with docker            #
+##########################################################################################
+
+
+Note: this is automatically done via travis (see .travis.yml) but manual steps are listed here for reference
+
+
+# build image (don't use cache)
+
+```
+sudo docker build --no-cache -t my-simple-webapp .
+```
+
+
+# list images
+
+```
+sudo docker images
+```
+ 
+
+# create a container from your image and run it
+ 
+```
+sudo docker run --name=my-running-simple-webapp -d -p 8080:8080 my-simple-webapp
+
+```
+
+
+# tag image
+
+```
+sudo docker tag <image ID>  <docker hub username>/<repository><image name>:<version label or tag>
+
+e.g.
+
+sudo docker tag my-webapp bishy999/golang:1.0-my-simplewebapp
+```
+
+
+# give terminal your docker hub credentials
+
+```
+sudo docker login
+```
+
+
+# push image to docker hub
+
+```
+docker push <docker hub username>/<repository><image name>
+
+e.g. on Mac
+
+sudo docker push bishy999/golang:1.0-my-simple-webapp
+```
+
+
+# check docker hub
+
+```
+image used in example here is stored on docker hub e.g https://hub.docker.com/r/bishy999/golang
+```
 
 
 
-## API Interaction
+
+# API Interaction
 
 SwaggerUI is accessible via accessing localhost:8080/swaggerui/
 
@@ -36,25 +98,10 @@ Bearer <token> e.g. Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTU5
 
 
 
-
 ## Contributing
 
 We love pull requests! Please see the [contribution guidelines](CONTRIBUTING.md).
 
-
-
-## Usage (binary)
-
-Download the client binary from the repository and compile it with version 
-
-Go get will download from the master, as such when we download it give it the tag verison from the master
-
-```go
-
-placeholder
-
-
-```
 
 
 ## Contributing

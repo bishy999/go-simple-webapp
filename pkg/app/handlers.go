@@ -3,7 +3,6 @@ package app
 import (
 	"database/sql"
 	"errors"
-	"fmt"
 	"html/template"
 	"io"
 	"log"
@@ -47,16 +46,19 @@ func favicon(w http.ResponseWriter, req *http.Request) {
 }
 
 func (env *Env) index(w http.ResponseWriter, req *http.Request) {
-	env.Tpl.ExecuteTemplate(w, "login.gohtml", nil)
+	err := env.Tpl.ExecuteTemplate(w, "login.gohtml", nil)
+	check(err)
 }
 
 func (env *Env) signupIndex(w http.ResponseWriter, req *http.Request) {
-	env.Tpl.ExecuteTemplate(w, "signup.gohtml", nil)
+	err := env.Tpl.ExecuteTemplate(w, "signup.gohtml", nil)
+	check(err)
 }
 
 func (env *Env) internal(w http.ResponseWriter, req *http.Request) {
 	u := env.getUser(w, req)
-	env.Tpl.ExecuteTemplate(w, "internal.gohtml", u)
+	err := env.Tpl.ExecuteTemplate(w, "internal.gohtml", u)
+	check(err)
 }
 
 func (env *Env) login(w http.ResponseWriter, req *http.Request) {
@@ -77,7 +79,7 @@ func (env *Env) login(w http.ResponseWriter, req *http.Request) {
 	log.Printf("User %v successfully logged in", u.UserName)
 
 	// create session
-	sID, _ := uuid.NewV4()
+	sID := uuid.NewV4()
 	c := &http.Cookie{
 		Name:  "session",
 		Value: sID.String(),
@@ -94,7 +96,6 @@ func (env *Env) login(w http.ResponseWriter, req *http.Request) {
 
 	// redirect
 	http.Redirect(w, req, "/internal", http.StatusSeeOther)
-	return
 
 }
 
@@ -117,7 +118,7 @@ func (env *Env) signup(w http.ResponseWriter, req *http.Request) {
 	}
 
 	// create session
-	sID, _ := uuid.NewV4()
+	sID := uuid.NewV4()
 	c := &http.Cookie{
 		Name:  "session",
 		Value: sID.String(),
@@ -146,7 +147,6 @@ func (env *Env) signup(w http.ResponseWriter, req *http.Request) {
 
 	//redirect
 	http.Redirect(w, req, "/internal", http.StatusSeeOther)
-	return
 
 }
 
@@ -176,8 +176,8 @@ func (env *Env) logout(w http.ResponseWriter, req *http.Request) {
 	http.SetCookie(w, c)
 
 	// clean up persisted sessions
-	fmt.Println(time.Now().Sub(env.DbSessionsCleaned))
-	if time.Now().Sub(env.DbSessionsCleaned) > (time.Second * 60) {
+	//fmt.Println(time.Now().Sub(env.DbSessionsCleaned))
+	if time.Since(env.DbSessionsCleaned) > (time.Second * 60) {
 		go env.cleanSessions()
 	}
 
@@ -197,12 +197,14 @@ func (env *Env) token(w http.ResponseWriter, req *http.Request) {
 	tkn, err := createToken(u.UserName)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		io.WriteString(w, `{"error":"token_generation_failed"}`)
+		_, err := io.WriteString(w, `{"error":"token_generation_failed"}`)
+		check(err)
 		return
 	}
 
 	u.Token = tkn
-	env.Tpl.ExecuteTemplate(w, "internal.gohtml", u)
+	err = env.Tpl.ExecuteTemplate(w, "internal.gohtml", u)
+	check(err)
 }
 
 // AuthMiddleware  is middleware to check token is valid. Returning
