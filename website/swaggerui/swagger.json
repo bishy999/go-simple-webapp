@@ -1,0 +1,344 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Swagger API for simple crud app",
+    "title": "simple crud app API.",
+    "contact": {
+      "name": "John Bishop",
+      "email": "bishy999@hotmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "version": "0.0.1"
+  },
+  "basePath": "/api",
+  "paths": {
+    "/events": {
+      "get": {
+        "description": "If the events are found, they will be returned else Error Not Found (404) will be returned.",
+        "tags": [
+          "events"
+        ],
+        "summary": "Return all events",
+        "operationId": "getAllEvents",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/success"
+          },
+          "400": {
+            "$ref": "#/responses/badRequest"
+          },
+          "404": {
+            "$ref": "#/responses/notFound"
+          }
+        }
+      },
+      "post": {
+        "description": "If event creation is a success, event will be returned with Created (201).",
+        "tags": [
+          "events"
+        ],
+        "summary": "Create a new event",
+        "operationId": "createEvent",
+        "parameters": [
+          {
+            "description": "event to add to the list of events",
+            "name": "event",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/event"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "$ref": "#/responses/success"
+          },
+          "400": {
+            "$ref": "#/responses/badRequest"
+          },
+          "404": {
+            "$ref": "#/responses/notFound"
+          }
+        }
+      },
+      "patch": {
+        "description": "If event update is a success, event will be returned with Created (200).",
+        "tags": [
+          "events"
+        ],
+        "summary": "Update an event",
+        "operationId": "updateEvent",
+        "parameters": [
+          {
+            "description": "update event details",
+            "name": "event",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/event"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/success"
+          },
+          "400": {
+            "$ref": "#/responses/badRequest"
+          },
+          "403": {
+            "$ref": "#/responses/forbidden"
+          },
+          "404": {
+            "$ref": "#/responses/notFound"
+          }
+        }
+      }
+    },
+    "/events/{id}": {
+      "get": {
+        "description": "If the event is found, it will be returned else Error Not Found (404) will be returned.",
+        "tags": [
+          "events"
+        ],
+        "summary": "Return an event provided by the id.",
+        "operationId": "getEvent",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "id of the event",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/success"
+          },
+          "400": {
+            "$ref": "#/responses/badRequest"
+          },
+          "404": {
+            "$ref": "#/responses/notFound"
+          }
+        }
+      },
+      "delete": {
+        "description": "If the event is found, it will be deleted else Error Not Found (404) will be returned.",
+        "tags": [
+          "events"
+        ],
+        "summary": "Delete an event",
+        "operationId": "deleteEvent",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "id of the event",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/success"
+          },
+          "400": {
+            "$ref": "#/responses/badRequest"
+          },
+          "404": {
+            "$ref": "#/responses/notFound"
+          }
+        }
+      }
+    },
+    "/token": {
+      "get": {
+        "description": "If the email and password are valid return token for further use.",
+        "tags": [
+          "token"
+        ],
+        "summary": "Generate a token",
+        "operationId": "generateToken",
+        "parameters": [
+          {
+            "description": "email",
+            "name": "email",
+            "in": "query",
+            "required": true
+          },
+          {
+            "description": "password",
+            "name": "password",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/success"
+          },
+          "400": {
+            "$ref": "#/responses/badRequest"
+          },
+          "403": {
+            "$ref": "#/responses/forbidden"
+          },
+          "404": {
+            "$ref": "#/responses/notFound"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "event": {
+      "type": "object",
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "ID": {
+          "type": "string"
+        },
+        "Title": {
+          "type": "string"
+        }
+      },
+      "x-go-package": "github.com/bishy999/go-simple-webapp/pkg/app"
+    }
+  },
+  "responses": {
+    "badRequest": {
+      "description": "Error Bad Request",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "HTTP status code 400 - Status Bad Request",
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "message": {
+            "description": "Detailed error message",
+            "type": "string",
+            "x-go-name": "Message"
+          }
+        }
+      }
+    },
+    "conflict": {
+      "description": "Error Conflict",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "HTTP status code 409 - Conflict",
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "message": {
+            "description": "Detailed error message",
+            "type": "string",
+            "x-go-name": "Message"
+          }
+        }
+      }
+    },
+    "forbidden": {
+      "description": "Error Forbidden",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "HTTP status code 403 - Forbidden",
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "message": {
+            "description": "Detailed error message",
+            "type": "string",
+            "x-go-name": "Message"
+          }
+        }
+      }
+    },
+    "internal": {
+      "description": "Error Interval Server",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "HTTP status code 500 - Internal server error",
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "message": {
+            "description": "Detailed error message",
+            "type": "string",
+            "x-go-name": "Message"
+          }
+        }
+      }
+    },
+    "notFound": {
+      "description": "Error Not Found",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "description": "HTTP status code 404 - Not Found",
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Code"
+          },
+          "message": {
+            "description": "Detailed error message",
+            "type": "string",
+            "x-go-name": "Message"
+          }
+        }
+      }
+    },
+    "success": {
+      "description": "Success response",
+      "schema": {
+        "$ref": "#/definitions/event"
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "description": "For accessing the API a valid JWT token must be passed in all the queries in\nthe 'Authorization' header.",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "Bearer": [
+        "[]"
+      ]
+    }
+  ]
+}
