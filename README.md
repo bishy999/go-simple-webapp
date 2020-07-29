@@ -50,7 +50,8 @@ Download the client binary from the repository and compile it with version
 Go get will download from the master, as such when we download it give it the tag verison from the master
 
 ```go
-go get -v -race -ldflags "-X main.version=v1.0.0 -X main.buildstamp=`TZ=UTC date -u '+%Y-%m-%dT%H:%M:%SZ'`)" github.com/bishy999/go-simple-webapp/cmd/???/
+
+placeholder
 
 
 ```
