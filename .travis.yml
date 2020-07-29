@@ -24,7 +24,7 @@ jobs:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker build -t my-simple-webapp .
       - docker images
-      - docker tag my-webapp $DOCKER_USERNAME/golang:1.${TRAVIS_BUILD_NUMBER}-my-simple-webapp
+      - docker tag my-simple-webapp $DOCKER_USERNAME/golang:1.${TRAVIS_BUILD_NUMBER}-my-simple-webapp
       - docker push $DOCKER_USERNAME/golang:1.${TRAVIS_BUILD_NUMBER}-my-simple-webapp
 
 # push results to CodeCov
