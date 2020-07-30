@@ -11,7 +11,10 @@ import (
 //InitDB setup database for use
 func InitDB() *sql.DB {
 
-	db, err := sql.Open("mysql", "root:Password1@tcp(localhost:3306)/test01?charset=utf8&parseTime=true")
+	var c conf
+	c.getConf()
+
+	db, err := sql.Open("mysql", c.Usename+":"+c.Password+"@tcp("+c.Host+":"+c.Port+")/"+c.Name+"?charset=utf8&parseTime=true")
 	check(err)
 
 	db.SetMaxOpenConns(25)
@@ -61,7 +64,6 @@ func (env *Env) findSession(id string) session {
 		s.id = uid
 		s.un = userid
 		s.lastActivity = lastActivity
-		//log.Printf("User match %s for the session %s", userid, uid)
 	}
 
 	return s

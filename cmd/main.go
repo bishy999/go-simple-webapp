@@ -45,6 +45,7 @@ import (
 
 func main() {
 
+
 	db := app.InitDB()
 	tpl := template.Must(template.ParseGlob("./website/templates/*"))
 	router := mux.NewRouter().StrictSlash(true)

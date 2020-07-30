@@ -1,0 +1,7 @@
+mysql-config:
+  name: test01
+  username: root
+  password: Password1
+  port: 3306
+  host: localhost
+  #host: docker.for.mac.host.internal

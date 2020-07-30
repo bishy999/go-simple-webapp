@@ -10,4 +10,5 @@ require (
 	github.com/gorilla/mux v1.7.4
 	github.com/satori/go.uuid v1.2.0
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
+	gopkg.in/yaml.v2 v2.3.0
 )

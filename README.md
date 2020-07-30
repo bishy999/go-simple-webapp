@@ -10,17 +10,29 @@ go-simple-webapp is an example of a basic crud webapp
 [![GoDoc](https://godoc.org/github.com/bishy999/go-simple-webapp/pkg/tag?status.svg)](https://godoc.org/github.com/bishy999/go-simple-webapp/pkg/app)
 ![GitHub Repo size](https://img.shields.io/github/repo-size/bishy999/go-simple-webapp)
 [![GitHub Tag](https://img.shields.io/github/tag/bishy999/go-simple-webapp.svg)](https://github.com/bishy999/go-simple-webapp/releases/latest)
-[![GitHub Activity](    )](https://github.com/bishy999/go-simple-webapp)
+[![GitHub Activity](https://img.shields.io/github/commit-activity/m/bishy999/go-simple-webapp)](https://github.com/bishy999/go-simple-webapp)
 [![GitHub Contributors](https://img.shields.io/github/contributors/bishy999/go-simple-webapp)](https://github.com/bishy999/go-simple-webapp)
 [![codecov](https://codecov.io/gh/bishy999/go-simple-webapp/branch/master/graph/badge.svg)](https://codecov.io/gh/bishy999/go-simple-webapp)
 
 
 
+# pull and run image
+```
+sudo docker run --name=my-running-simple-webapp -d -p 8080:8080 bishy999/golang:1.2-my-simple-webapp
+```
 
 
-##########################################################################################
-#                  Steps to build and deploy simple golang webapp with docker            #
-##########################################################################################
+# check app is working via browser/cli
+ 
+```
+http://localhost:8080
+curl http://localhost:8080
+```
+
+
+##################################################################################
+#              Steps to build and deploy simple golang webapp with docker        #
+##################################################################################
 
 
 Note: this is automatically done via travis (see .travis.yml) but manual steps are listed here for reference
@@ -87,6 +99,7 @@ image used in example here is stored on docker hub e.g https://hub.docker.com/r/
 
 
 # API Interaction
+``
 
 SwaggerUI is accessible via accessing localhost:8080/swaggerui/
 
@@ -97,13 +110,7 @@ Select Authorize and add token
 Bearer <token> e.g. Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1OTU5NDk4NTYsImlhdCI6MTU5NTk0NjI1NiwidXNlciI6ImJpc2h5OTk5QGhvdG1haWwuY29tIn0.asfclX0eGC6Ve-XvW2PL1UpGOtbibSIuiUdg5Xpk-T0
 
 
-
 ## Contributing
 
 We love pull requests! Please see the [contribution guidelines](CONTRIBUTING.md).
 
-
-
-## Contributing
-
-We love pull requests! Please see the [contribution guidelines](CONTRIBUTING.md).
