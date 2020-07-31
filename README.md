@@ -18,7 +18,7 @@ go-simple-webapp is an example of a basic crud webapp
 
 # pull and run image
 ```
-sudo docker run --name=my-running-simple-webapp -d -p 8080:8080 bishy999/golang:1.2-my-simple-webapp
+sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.4
 ```
 
 
@@ -30,9 +30,9 @@ curl http://localhost:8080
 ```
 
 
-##################################################################################
-#              Steps to build and deploy simple golang webapp with docker        #
-##################################################################################
+#############################################################################
+#          steps to build and deploy simple golang webapp with docker       #
+#############################################################################
 
 
 Note: this is automatically done via travis (see .travis.yml) but manual steps are listed here for reference
@@ -41,7 +41,7 @@ Note: this is automatically done via travis (see .travis.yml) but manual steps a
 # build image (don't use cache)
 
 ```
-sudo docker build --no-cache -t my-simple-webapp .
+sudo docker build --no-cache -t go-simple-webapp .
 ```
 
 
@@ -51,15 +51,6 @@ sudo docker build --no-cache -t my-simple-webapp .
 sudo docker images
 ```
  
-
-# create a container from your image and run it
- 
-```
-sudo docker run --name=my-running-simple-webapp -d -p 8080:8080 my-simple-webapp
-
-```
-
-
 # tag image
 
 ```
@@ -67,7 +58,7 @@ sudo docker tag <image ID>  <docker hub username>/<repository><image name>:<vers
 
 e.g.
 
-sudo docker tag my-webapp bishy999/golang:1.0-my-simplewebapp
+sudo docker tag go-simple-webapp bishy999/go-simple-webapp:1.4
 ```
 
 
@@ -85,7 +76,7 @@ docker push <docker hub username>/<repository><image name>
 
 e.g. on Mac
 
-sudo docker push bishy999/golang:1.0-my-simple-webapp
+sudo docker push bishy999/go-simple-webapp:1.4
 ```
 
 
@@ -93,6 +84,13 @@ sudo docker push bishy999/golang:1.0-my-simple-webapp
 
 ```
 image used in example here is stored on docker hub e.g https://hub.docker.com/r/bishy999/golang
+```
+
+# create a container from your image and run it
+ 
+```
+sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.4
+
 ```
 
 

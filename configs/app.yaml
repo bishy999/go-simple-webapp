@@ -1,5 +1,5 @@
 mysql-config:
-  name: test01
+  name: demo
   username: root
   password: Password1
   port: 3306

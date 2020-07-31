@@ -25,7 +25,7 @@ func (c *conf) getConf() *conf {
 
 	yamlFile, err := ioutil.ReadFile("configs/app.yaml")
 	if err != nil {
-		log.Printf("yamlFile.Get err   #%v ", err)
+		log.Fatalf("yamlFile.Get err   #%v ", err)
 	}
 	if err = yaml.Unmarshal(yamlFile, c); err != nil {
 		log.Fatalf("Unmarshal: %v", err)

@@ -22,10 +22,10 @@ jobs:
     - stage: build docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t my-simple-webapp .
+      - docker build -t go-simple-webapp .
       - docker images
-      - docker tag my-simple-webapp $DOCKER_USERNAME/golang:1.${TRAVIS_BUILD_NUMBER}-my-simple-webapp
-      - docker push $DOCKER_USERNAME/golang:1.${TRAVIS_BUILD_NUMBER}-my-simple-webapp
+      - docker tag go-simple-webapp $DOCKER_USERNAME/go-simple-webapp:1.${TRAVIS_BUILD_NUMBER}
+      - docker push $DOCKER_USERNAME/go-simple-webapp:1.${TRAVIS_BUILD_NUMBER}-my-simple-webapp
 
 # push results to CodeCov
 #after_success:
