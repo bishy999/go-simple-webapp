@@ -4,6 +4,7 @@ import (
 	"net/http"
 )
 
+
 // InitializeRoutes setup route mappings
 func InitializeRoutes(env *Env) {
 
@@ -36,5 +37,4 @@ func InitializeRoutes(env *Env) {
 	// Server static files
 	uiRouter.PathPrefix("/website/static").Handler(http.StripPrefix("/", http.FileServer(http.Dir(dir))))
 	uiRouter.PathPrefix("/swaggerui").Handler(http.StripPrefix("/", http.FileServer(http.Dir("website"))))
-
 }

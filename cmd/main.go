@@ -43,20 +43,21 @@ import (
 	"github.com/bishy999/go-simple-webapp/pkg/app"
 )
 
+
 func main() {
 
-
-	db := app.InitDB()
-	tpl := template.Must(template.ParseGlob("./website/templates/*"))
+	cfg := app.GetConf()
+	db := app.InitDB(cfg)
+	tpl := template.Must(template.ParseGlob("website/templates/*"))
 	router := mux.NewRouter().StrictSlash(true)
 
-	env := &app.Env{DB: db, Tpl: tpl, Router: router, DbSessionsCleaned: time.Now()}
+	env := &app.Env{DB: db, Tpl: tpl, Router: router, DbSessionsCleaned: time.Now(), Conf: cfg}
 	app.InitializeRoutes(env)
 
 	log.Println("#########################")
 	log.Println("Server is up on 8080 port")
 	log.Println("#########################")
 
-	log.Fatalln(http.ListenAndServe(":8080", router))
+	log.Fatalln(http.ListenAndServe(":8080", env.Router))
 
 }

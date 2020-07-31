@@ -11,14 +11,9 @@ import (
 
 	jwtmiddleware "github.com/auth0/go-jwt-middleware"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/google/uuid"
 	"github.com/gorilla/mux"
-	uuid "github.com/satori/go.uuid"
 	"golang.org/x/crypto/bcrypt"
-)
-
-const (
-	// AppKey ghg
-	AppKey = "golangcode.com"
 )
 
 // Env contains data required to start
@@ -27,6 +22,7 @@ type Env struct {
 	Tpl               *template.Template
 	Router            *mux.Router
 	DbSessionsCleaned time.Time
+	Conf              *Conf
 }
 
 type user struct {
@@ -75,11 +71,12 @@ func (env *Env) login(w http.ResponseWriter, req *http.Request) {
 	u, err := env.checkCredentials(username, passwd)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusForbidden)
+		return
 	}
 	log.Printf("User %v successfully logged in", u.UserName)
 
 	// create session
-	sID := uuid.NewV4()
+	sID := uuid.Must(uuid.NewRandom())
 	c := &http.Cookie{
 		Name:  "session",
 		Value: sID.String(),
@@ -118,7 +115,7 @@ func (env *Env) signup(w http.ResponseWriter, req *http.Request) {
 	}
 
 	// create session
-	sID := uuid.NewV4()
+	sID := uuid.Must(uuid.NewRandom())
 	c := &http.Cookie{
 		Name:  "session",
 		Value: sID.String(),
@@ -176,7 +173,6 @@ func (env *Env) logout(w http.ResponseWriter, req *http.Request) {
 	http.SetCookie(w, c)
 
 	// clean up persisted sessions
-	//fmt.Println(time.Now().Sub(env.DbSessionsCleaned))
 	if time.Since(env.DbSessionsCleaned) > (time.Second * 60) {
 		go env.cleanSessions()
 	}
@@ -210,6 +206,7 @@ func (env *Env) token(w http.ResponseWriter, req *http.Request) {
 // AuthMiddleware  is middleware to check token is valid. Returning
 // a 401 status to the client if it is not valid.
 func AuthMiddleware(next http.Handler) http.Handler {
+
 	if len(AppKey) == 0 {
 		log.Fatal("HTTP server unable to start, expected an APP_KEY for JWT auth")
 	}

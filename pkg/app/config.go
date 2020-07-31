@@ -7,10 +7,11 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-type conf struct {
-	SQLConf  `yaml:"mysql-config"`
+//Conf contains yaml values
+type Conf struct {
+	SQLConf `yaml:"mysql-config"`
+	JWTConf `yaml:"jwt-config"`
 }
-
 
 // SQLConf contains config for initializing the mysql db
 type SQLConf struct {
@@ -21,7 +22,18 @@ type SQLConf struct {
 	Host     string `yaml:"host"`
 }
 
-func (c *conf) getConf() *conf {
+// JWTConf contains config for jwt
+type JWTConf struct {
+	Secret string `yaml:"secret"`
+}
+
+// AppKey secret key value for JWT
+var AppKey string
+
+//GetConf setup database for use
+func GetConf() *Conf {
+
+	c := &Conf{}
 
 	yamlFile, err := ioutil.ReadFile("configs/app.yaml")
 	if err != nil {
@@ -31,5 +43,6 @@ func (c *conf) getConf() *conf {
 		log.Fatalf("Unmarshal: %v", err)
 	}
 
+	AppKey = c.Secret
 	return c
 }

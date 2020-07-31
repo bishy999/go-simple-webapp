@@ -7,7 +7,6 @@ type success struct {
 	Body event
 }
 
-
 // Error Bad Request
 // swagger:response badRequest
 type swaggErrBadReq struct {
@@ -67,5 +66,3 @@ type swaggErrInternal struct {
 		Message string `json:"message"`
 	}
 }
-
-

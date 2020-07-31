@@ -5,3 +5,5 @@ mysql-config:
   port: 3306
   host: localhost
   #host: docker.for.mac.host.internal
+jwt-config:
+  secret: MySecretKey

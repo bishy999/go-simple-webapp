@@ -9,10 +9,7 @@ import (
 )
 
 //InitDB setup database for use
-func InitDB() *sql.DB {
-
-	var c conf
-	c.getConf()
+func InitDB(c *Conf) *sql.DB {
 
 	db, err := sql.Open("mysql", c.Usename+":"+c.Password+"@tcp("+c.Host+":"+c.Port+")/"+c.Name+"?charset=utf8&parseTime=true")
 	check(err)
@@ -27,24 +24,6 @@ func InitDB() *sql.DB {
 	return db
 
 }
-
-/**
-func (env *Env) createDB(w http.ResponseWriter, req *http.Request) {
-
-	stmt, err := env.DB.Prepare(`CREATE TABLE user (userid VARCHAR(30), passwd CHAR(60));`)
-	//stmt, err := db.Prepare(`CREATE TABLE session (uid CHAR(60), userid VARCHAR(30), lastActivity DATETIME);`)
-	check(err)
-	defer stmt.Close()
-
-	r, err := stmt.Exec()
-	check(err)
-
-	n, err := r.RowsAffected()
-	check(err)
-
-	fmt.Fprintln(w, "CREATED TABLE user", n)
-}
-**/
 
 // findUserSession searches for the user associated with this session
 // returns session if found
