@@ -58,7 +58,7 @@ sudo docker tag <image ID>  <docker hub username>/<repository><image name>:<vers
 
 e.g.
 
-sudo docker tag go-simple-webapp bishy999/go-simple-webapp:1.4
+sudo docker tag go-simple-webapp bishy999/go-simple-webapp:1.5
 ```
 
 
@@ -76,7 +76,7 @@ docker push <docker hub username>/<repository><image name>
 
 e.g. on Mac
 
-sudo docker push bishy999/go-simple-webapp:1.4
+sudo docker push bishy999/go-simple-webapp:1.5
 ```
 
 
@@ -89,7 +89,7 @@ image used in example here is stored on docker hub e.g https://hub.docker.com/r/
 # create a container from your image and run it
  
 ```
-sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.4
+sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.5
 
 ```
 

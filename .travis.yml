@@ -25,7 +25,7 @@ jobs:
       - docker build -t go-simple-webapp .
       - docker images
       - docker tag go-simple-webapp $DOCKER_USERNAME/go-simple-webapp:1.${TRAVIS_BUILD_NUMBER}
-      - docker push $DOCKER_USERNAME/go-simple-webapp:1.${TRAVIS_BUILD_NUMBER}-my-simple-webapp
+      - docker push $DOCKER_USERNAME/go-simple-webapp:1.${TRAVIS_BUILD_NUMBER}
 
 # push results to CodeCov
 #after_success:
