@@ -11,17 +11,30 @@ import (
 //InitDB setup database for use
 func InitDB(c *Conf) *sql.DB {
 
-	db, err := sql.Open("mysql", c.Usename+":"+c.Password+"@tcp("+c.Host+":"+c.Port+")/"+c.Name+"?charset=utf8&parseTime=true")
-	check(err)
+	var db *sql.DB
+	var err error
+	const timeout = 1 * time.Minute // wait for db
+	deadline := time.Now().Add(timeout)
 
-	db.SetMaxOpenConns(25)
-	db.SetMaxIdleConns(25)
-	db.SetConnMaxLifetime(5 * time.Minute)
+	for tries := 0; time.Now().Before(deadline); tries++ {
 
-	err = db.Ping()
-	check(err)
+		db, err = sql.Open("mysql", c.Usename+":"+c.Password+"@tcp("+c.Host+":"+c.Port+")/"+c.Name+"?charset=utf8&parseTime=true")
+		if err == nil {
+			db.SetMaxOpenConns(25)
+			db.SetMaxIdleConns(25)
+			db.SetConnMaxLifetime(5 * time.Minute)
 
-	return db
+			err = db.Ping()
+			if err != nil {
+				log.Printf("db server not responding (%s); retrying...", err)
+				time.Sleep(time.Second << uint(tries))
+				continue
+			}
+			return db
+		}
+	}
+	log.Fatal("db server on is not running")
+	return nil
 
 }
 
