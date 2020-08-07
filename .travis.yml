@@ -18,7 +18,7 @@ jobs:
       script:
       - golangci-lint run --skip-files swagger.go
       - go test -cover ./pkg/...
-      # - go test -race -coverprofile=coverage.txt -covermode=atomic
+      - go test ./pkg/... -race -coverprofile=coverage.txt -covermode=atomic
     - stage: build docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
