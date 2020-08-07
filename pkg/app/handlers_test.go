@@ -14,7 +14,6 @@ func TestGetLogin(t *testing.T) {
 
 	userid := "test112@test.com"
 	passwd := "password1"
-	//s := session{id: uuid.New().String(), un: userid, lastActivity: time.Now()}
 	u := user{UserName: userid, Password: []byte(passwd)}
 
 	req, err := http.NewRequest("GET", "/login", nil)

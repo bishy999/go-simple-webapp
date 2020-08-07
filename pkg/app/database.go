@@ -42,7 +42,7 @@ func InitDB(c *Conf) *sql.DB {
 // returns session if found
 func (env *Env) findSession(id string) session {
 
-	rows, err := env.DB.Query("SELECT * FROM session WHERE uid=", id)
+	rows, err := env.DB.Query("SELECT * FROM session WHERE uid=?", id)
 	check(err)
 	defer rows.Close()
 
