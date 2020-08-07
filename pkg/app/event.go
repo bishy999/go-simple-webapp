@@ -279,6 +279,10 @@ func (db *Env) generateToken(w http.ResponseWriter, req *http.Request) {
 
 func createToken(username string) (string, error) {
 
+	if username == "" {
+		return "", fmt.Errorf("provide valid username")
+	}
+
 	// We are happy with the credentials, so build a token. We've given it
 	// an expiry of 1 hour.
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{

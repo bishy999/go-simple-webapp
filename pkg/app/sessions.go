@@ -68,7 +68,6 @@ func (db *Env) cleanSessions() {
 	log.Println(" ### Session Clean Up ### ")
 	dbSessions := db.findAllSession()
 	for _, v := range dbSessions {
-		//if time.Since().Sub(v.lastActivity) > (time.Second * 30) {
 		if time.Since(v.lastActivity) > (time.Second * 30) {
 			db.deleteSession(v.id)
 			fmt.Println(time.Since(v.lastActivity))
