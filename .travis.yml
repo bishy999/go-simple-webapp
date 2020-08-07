@@ -17,7 +17,7 @@ jobs:
       - go install github.com/golangci/golangci-lint/cmd/golangci-lint
       script:
       - golangci-lint run --skip-files swagger.go
-      #- go test -cover ./pkg/...
+      - go test -cover ./pkg/...
       # - go test -race -coverprofile=coverage.txt -covermode=atomic
     - stage: build docker image
       script:
@@ -28,7 +28,7 @@ jobs:
       - docker push $DOCKER_USERNAME/go-simple-webapp:1.${TRAVIS_BUILD_NUMBER}
 
 # push results to CodeCov
-#after_success:
-#  - bash <(curl -s https://codecov.io/bash)
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 
