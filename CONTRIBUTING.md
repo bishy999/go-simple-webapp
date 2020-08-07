@@ -54,6 +54,11 @@ When working on code in this repository, tests can be run via:
 go test -cover ./pkg/...
 ```
 
+```go
+go test -run TestFindSession ./pkg/.../
+```
+
+
 
 ```
 # Run go static analysis

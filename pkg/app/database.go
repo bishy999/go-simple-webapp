@@ -33,7 +33,7 @@ func InitDB(c *Conf) *sql.DB {
 			return db
 		}
 	}
-	log.Fatal("db server on is not running")
+	log.Fatal("db server is not running")
 	return nil
 
 }
@@ -42,7 +42,7 @@ func InitDB(c *Conf) *sql.DB {
 // returns session if found
 func (env *Env) findSession(id string) session {
 
-	rows, err := env.DB.Query("SELECT * FROM session WHERE uid=?", id)
+	rows, err := env.DB.Query("SELECT * FROM session WHERE uid=", id)
 	check(err)
 	defer rows.Close()
 

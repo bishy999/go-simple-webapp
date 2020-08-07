@@ -83,7 +83,7 @@ sudo docker push bishy999/go-simple-webapp:1.6
 # check docker hub
 
 ```
-image used in example here is stored on docker hub e.g https://hub.docker.com/r/bishy999/golang
+image used in example here is stored on docker hub e.g https://hub.docker.com/r/bishy999/go-simple-webapp
 ```
 
 # create a container from your image and run it
