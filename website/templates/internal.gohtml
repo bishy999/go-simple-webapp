@@ -23,22 +23,41 @@
     <!-- Custom styles for this template -->
     <link href="./website/static/css/signin.css" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
   </head>
 
-{{if .Token}} 
-TOKEN {{.Token}}<br>
-{{end}}
+<div class="container">
+
 
 {{if .UserName}} 
-USER NAME {{.UserName}}<br>
-PASSWORD {{.Password}}<br>
+  <h2>User Info</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>UserName</th>
+        <th>Token</th>  
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{.UserName}}</td>
+        {{if .Token}} 
+        <td>{{.Token}}<br></td>
+        {{end}}
+      </tr>
+    </tbody>
+  </table>
 <a class="btn" href="/result">Generte API Token</a>
 <a class="btn" href="/logout">Logout</a>
 {{else}}
 <h2><a href="/signup">sign up</a></h2>
 <h2><a href="/login">log in</a></h2>
 {{end}}
+
+
+</div>
 
 
 </body>
