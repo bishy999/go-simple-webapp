@@ -43,7 +43,7 @@ go test -v ./pkg/...
 Specific test can be targeted
 
 ```go
-go test -run TestUserInputAdd ./pkg/app/
+go test -run TestFindSession ./pkg/app/
 ```
 
 ## Running tests with coverage
@@ -53,12 +53,6 @@ When working on code in this repository, tests can be run via:
 ```go
 go test -cover ./pkg/...
 ```
-
-```go
-go test -run TestFindSession ./pkg/.../
-```
-
-
 
 ```
 # Run go static analysis

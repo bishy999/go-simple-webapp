@@ -17,25 +17,31 @@ go-simple-webapp is an example of a basic crud webapp
 
 
 # pull and run image
+
 ```
-sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.6
+sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.15
 ```
+
+# sql image for this
+```
+see https://github.com/bishy999/mysql-simple-db
+``` 
 
 
 # check app is working via browser/cli
- 
+
 ```
 http://localhost:8080
 curl http://localhost:8080
 ```
 
 
-#############################################################################
-#          steps to build and deploy simple golang webapp with docker       #
-#############################################################################
+####################################################################
+#          build and deploy simple golang webapp with docker       #
+####################################################################
 
 
-Note: this is automatically done via travis (see .travis.yml) but manual steps are listed here for reference
+<u>Note:</u>  This is automatically done via travis (see .travis.yml) but manual steps are listed here for reference<br>
 
 
 # build image (don't use cache)
@@ -58,7 +64,7 @@ sudo docker tag <image ID>  <docker hub username>/<repository><image name>:<vers
 
 e.g.
 
-sudo docker tag go-simple-webapp bishy999/go-simple-webapp:1.6
+sudo docker tag go-simple-webapp bishy999/go-simple-webapp:1.15
 ```
 
 
@@ -76,7 +82,7 @@ docker push <docker hub username>/<repository><image name>
 
 e.g. on Mac
 
-sudo docker push bishy999/go-simple-webapp:1.6
+sudo docker push bishy999/go-simple-webapp:1.15
 ```
 
 
@@ -89,7 +95,7 @@ image used in example here is stored on docker hub e.g https://hub.docker.com/r/
 # create a container from your image and run it
  
 ```
-sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.6
+sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.15
 
 ```
 
