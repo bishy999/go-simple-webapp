@@ -3,6 +3,7 @@ package app
 import (
 	"io/ioutil"
 	"log"
+	"os"
 
 	"gopkg.in/yaml.v2"
 )
@@ -44,5 +45,25 @@ func GetConf() *Conf {
 	}
 
 	AppKey = c.Secret
+
+	// Override with env if set otherwise use yaml
+	c.Host = getEnv("MYSQL_HOST", c.Host)
+	c.Name = getEnv("MYSQL_DB", c.Name)
+	c.Usename = getEnv("MYSQL_USERNAME", c.Usename)
+	c.Password = getEnv("MYSQL_PASSWORD", c.Password)
+	c.Port = getEnv("MYSQL_PORT", c.Port)
+
 	return c
+}
+
+
+//getEnv find specified env varible
+// return value of env variable or if not found return default
+func getEnv(key string, defaultVal string) string {
+
+	if value, exists := os.LookupEnv(key); exists {
+		return value
+	}
+
+	return defaultVal
 }

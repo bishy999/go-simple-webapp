@@ -92,14 +92,18 @@ sudo docker push bishy999/go-simple-webapp:1.15
 image used in example here is stored on docker hub e.g https://hub.docker.com/r/bishy999/go-simple-webapp
 ```
 
-# create a container from your image and run it
+# create a container from your image and run it default
  
 ```
-sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.15
-
+sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.16
 ```
 
+# create a container from your image and run it with specified env variables that override the default set in yaml
 
+
+```
+sudo docker run --name=go-simple-webapp -e MYSQL_HOST=localhost -e MYSQL_DB=demo -e MYSQL_USERNAME=root -e MYSQL_USERNAME=Password1 -e MYSQL_PORT=3306 -d -p 8080:8080 bishy999/go-simple-webapp:1.16
+```
 
 
 # API Interaction
