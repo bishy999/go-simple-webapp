@@ -19,7 +19,7 @@ go-simple-webapp is an example of a basic crud webapp
 # pull and run image
 
 ```
-sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.15
+sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.18
 ```
 
 # sql image for this
@@ -64,7 +64,7 @@ sudo docker tag <image ID>  <docker hub username>/<repository><image name>:<vers
 
 e.g.
 
-sudo docker tag go-simple-webapp bishy999/go-simple-webapp:1.15
+sudo docker tag go-simple-webapp bishy999/go-simple-webapp:1.18
 ```
 
 
@@ -82,7 +82,7 @@ docker push <docker hub username>/<repository><image name>
 
 e.g. on Mac
 
-sudo docker push bishy999/go-simple-webapp:1.15
+sudo docker push bishy999/go-simple-webapp:1.18
 ```
 
 
@@ -92,17 +92,16 @@ sudo docker push bishy999/go-simple-webapp:1.15
 image used in example here is stored on docker hub e.g https://hub.docker.com/r/bishy999/go-simple-webapp
 ```
 
-# create a container from your image and run it default
+# create a container from your image and run it
  
 ```
-sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.16
+sudo docker run --name=go-simple-webapp -d -p 8080:8080 bishy999/go-simple-webapp:1.18
 ```
 
-# create a container from your image and run it with specified env variables that override the default set in yaml
-
+# run container with specified env variables that override the default set in yaml
 
 ```
-sudo docker run --name=go-simple-webapp -e MYSQL_HOST=localhost -e MYSQL_DB=demo -e MYSQL_USERNAME=root -e MYSQL_USERNAME=Password1 -e MYSQL_PORT=3306 -d -p 8080:8080 bishy999/go-simple-webapp:1.16
+sudo docker run --name=go-simple-webapp -e MYSQL_HOST=docker.for.mac.host.internal -e MYSQL_DB=demo -e MYSQL_USERNAME=root -e MYSQL_PASSWORD=Password1 -e MYSQL_PORT=3306 -d -p 8080:8080 bishy999/go-simple-webapp:1.18
 ```
 
 
